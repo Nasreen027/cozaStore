@@ -1,5 +1,4 @@
 <?php
-include('query.php');
 include('header.php');
 ?>
 <!-- Table Start -->
@@ -80,16 +79,16 @@ include('header.php');
                                     <div class="form-group">
                                         <select name="selectCtg" id="">
                                             <option value="">Choose category</option>
-                                            <?php
-                                            $query = $pdo->prepare('select * from category');
+                                           <?php
+                                            $query = $pdo->query('select * from category');
                                             $result = $query->fetchAll(PDO::FETCH_ASSOC);
-                                            echo $result;
-                                            foreach ($result as $ctg) {
-                                                ?>
-                                                <option value="<?php echo $ctg['ctgName'] ?>"><?php echo $ctg['ctgName'] ?></option>
-                                                <?
-                                            }
-                                            ?>
+                                            foreach($result as $data){
+                                           ?>
+                                            <option value=""><?php echo $data['ctgName'] ?></option>
+                                          <?php 
+                                        } 
+                                          ?>
+                                        
                                         </select>
                                     </div>
                                 </div>

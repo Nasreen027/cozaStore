@@ -44,6 +44,9 @@ if (isset($_POST['addCtgBtn'])) {
 //add product
 if (isset($_POST['addProdBtn'])) {
     $prName = $_POST['prName'];
+    $prPrice = $_POST['prPrice'];
+    $prQty = $_POST['prQty'];
+    $selectCtg = $_POST['selectCtg'];
     $prImage = $_FILES['prImage']['name'];
     $prImageSize = $_FILES['prImage']['size'];
     $prImageTmpName = $_FILES['prImage']['tmp_name'];
@@ -61,8 +64,13 @@ if (isset($_POST['addProdBtn'])) {
             if(move_uploaded_file($prImageTmpName,$destinationProd)){
                 $query = $pdo->prepare('insert into products(name,price,qty,proImage,category) values(:name,:price,:qty,:proImage,:category)');
                 $query->bindParam('name',$prName);
+                $query->bindParam('price',$prPrice);
+                $query->bindParam('qty',$prQty);
                 $query->bindParam('proImage',$randomImageNameProd);
+                $query->bindParam('category',$selectCtg);
+
                 $query->execute();
+                echo "after executing";
                 echo "<script>alert('Product added successfully')</script>";
             }
             else{
