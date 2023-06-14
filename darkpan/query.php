@@ -13,11 +13,11 @@ if (isset($_POST['addCtgBtn'])) {
     $randomImageName = generateRandomString(10).".".$ctgImageExt;
     $destination = __DIR__."/img/" . $randomImageName;
 
-    echo "came here";
+    // echo "came here";
 
     if ($ctgImageSize <= 4800000) {
         if($ctgImageExt == 'jpeg' || $ctgImageExt == 'jpg' || $ctgImageExt == 'png' || $ctgImageExt == 'svg' || $ctgImageExt == 'webp'){
-            echo $ctgImageTmpName."-----TEMP NAME----".$destination."----DEST----".$ctgImage."---CTG IMAGE";
+            // echo $ctgImageTmpName."-----TEMP NAME----".$destination."----DEST----".$ctgImage."---CTG IMAGE";
             // exit();
             if(move_uploaded_file($ctgImageTmpName,$destination)){
                 $query = $pdo->prepare('insert into category(ctgName,ctgImage) values(:ctgName,:ctgImage)');
@@ -55,11 +55,11 @@ if (isset($_POST['addProdBtn'])) {
     $randomImageNameProd = generateRandomString(10).".".$prImageExt;
     $destinationProd = __DIR__."/img/" . $randomImageNameProd;
 
-    echo "came here";
+    // echo "came here";
 
     if ($prImageSize <= 4800000) {
         if($prImageExt == 'jpeg' || $prImageExt == 'jpg' || $prImageExt == 'png' || $prImageExt == 'svg' || $prImageExt == 'webp'){
-            echo $prImageTmpName."-----TEMP NAME----".$destinationProd."----DEST----".$prImage."---CTG IMAGE";
+            // echo $prImageTmpName."-----TEMP NAME----".$destinationProd."----DEST----".$prImage."---CTG IMAGE";
             // exit();
             if(move_uploaded_file($prImageTmpName,$destinationProd)){
                 $query = $pdo->prepare('insert into products(name,price,qty,proImage,category) values(:name,:price,:qty,:proImage,:category)');
@@ -68,7 +68,6 @@ if (isset($_POST['addProdBtn'])) {
                 $query->bindParam('qty',$prQty);
                 $query->bindParam('proImage',$randomImageNameProd);
                 $query->bindParam('category',$selectCtg);
-
                 $query->execute();
                 echo "after executing";
                 echo "<script>alert('Product added successfully')</script>";
