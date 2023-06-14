@@ -52,6 +52,7 @@ if (isset($_POST['addProdBtn'])) {
     $prImageTmpName = $_FILES['prImage']['tmp_name'];
     $prImageExt = pathinfo($prImage, PATHINFO_EXTENSION);
 
+
     $randomImageNameProd = generateRandomString(10).".".$prImageExt;
     $destinationProd = __DIR__."/img/" . $randomImageNameProd;
 
@@ -85,5 +86,48 @@ if (isset($_POST['addProdBtn'])) {
         echo "<script>alert('file is too heavy')</script>";
     };
 
+};
+
+//signin
+session_start();
+if(isset($_POST['loginBtn'])){
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $query = $pdo->prepare('select * from login where email = :email && password = :password');
+    $query->bindParam("email",$email);
+    $query->bindParam("password",$password);
+    $query->execute();
+    $row = $query->fetch(PDO::FETCH_ASSOC);
+    if($row){
+        $_SESSION['id'] = $row['userId'];
+        header("location:index.php");
+    }
+    else{
+        echo "<script>alert('user not found')</script>";
+    };
+};
+// session_start();
+//signup
+if(isset($_POST['signUpBtn'])){
+    $getUserName = $_POST['getUserName'];
+    $getEmail = $_POST['getEmail'];
+    $getPass = $_POST['getPass'];
+    $query = $pdo->prepare("insert into login(username,email,password) values(:username,:email,:password)");
+    $query->bindParam("username",$getUserName);
+    $query->bindParam("email",$getEmail);
+    $query->bindParam("password",$getPass);
+    $query->execute();
+    echo "<script>alert('Account has been created')</script>";
+    header('location:index.php');
 }
+else{
+    // echo "<script>alert('This user already exists')</script>";
+};
+
+// if(isset($_SESSION['id'])){
+//     header("location:index.php");
+// }
+// else{
+//     header("location:signin.php");
+// };
 ?>
