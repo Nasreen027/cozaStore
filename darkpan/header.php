@@ -1,5 +1,9 @@
 <?php
 include('query.php');
+// session_start();
+if(!isset($_SESSION['id'])){
+    header('location:sigin.php');
+};
 ?>
 <!DOCTYPE html>
 <html lang="en">

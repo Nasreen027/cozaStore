@@ -1,7 +1,7 @@
 <?php
 include('connection.php');
 include_once("./includes/functions.php");
- 
+
 //add category
 if (isset($_POST['addCtgBtn'])) {
     $ctgName = $_POST['ctgName'];
@@ -10,34 +10,32 @@ if (isset($_POST['addCtgBtn'])) {
     $ctgImageTmpName = $_FILES['ctgImage']['tmp_name'];
     $ctgImageExt = pathinfo($ctgImage, PATHINFO_EXTENSION);
 
-    $randomImageName = generateRandomString(10).".".$ctgImageExt;
-    $destination = __DIR__."/img/" . $randomImageName;
+    $randomImageName = generateRandomString(10) . "." . $ctgImageExt;
+    $destination = __DIR__ . "/img/" . $randomImageName;
 
     // echo "came here";
 
     if ($ctgImageSize <= 4800000) {
-        if($ctgImageExt == 'jpeg' || $ctgImageExt == 'jpg' || $ctgImageExt == 'png' || $ctgImageExt == 'svg' || $ctgImageExt == 'webp'){
+        if ($ctgImageExt == 'jpeg' || $ctgImageExt == 'jpg' || $ctgImageExt == 'png' || $ctgImageExt == 'svg' || $ctgImageExt == 'webp') {
             // echo $ctgImageTmpName."-----TEMP NAME----".$destination."----DEST----".$ctgImage."---CTG IMAGE";
             // exit();
-            if(move_uploaded_file($ctgImageTmpName,$destination)){
+            if (move_uploaded_file($ctgImageTmpName, $destination)) {
                 $query = $pdo->prepare('insert into category(ctgName,ctgImage) values(:ctgName,:ctgImage)');
-                $query->bindParam('ctgName',$ctgName);
-                $query->bindParam('ctgImage',$randomImageName);
+                $query->bindParam('ctgName', $ctgName);
+                $query->bindParam('ctgImage', $randomImageName);
                 $query->execute();
                 echo "<script>alert('Product added successfully')</script>";
-            }
-            else{
+            } else {
                 echo "<script>alert('Product not added')</script>";
             }
 
-        }
-        else{
+        } else {
             echo "<script>alert('Invalid extension')</script>";
         }
-    }
-    else{
+    } else {
         echo "<script>alert('file is too heavy')</script>";
-    };
+    }
+    ;
 
 }
 
@@ -53,76 +51,115 @@ if (isset($_POST['addProdBtn'])) {
     $prImageExt = pathinfo($prImage, PATHINFO_EXTENSION);
 
 
-    $randomImageNameProd = generateRandomString(10).".".$prImageExt;
-    $destinationProd = __DIR__."/img/" . $randomImageNameProd;
+    $randomImageNameProd = generateRandomString(10) . "." . $prImageExt;
+    $destinationProd = __DIR__ . "/img/" . $randomImageNameProd;
 
     // echo "came here";
 
     if ($prImageSize <= 4800000) {
-        if($prImageExt == 'jpeg' || $prImageExt == 'jpg' || $prImageExt == 'png' || $prImageExt == 'svg' || $prImageExt == 'webp'){
+        if ($prImageExt == 'jpeg' || $prImageExt == 'jpg' || $prImageExt == 'png' || $prImageExt == 'svg' || $prImageExt == 'webp') {
             // echo $prImageTmpName."-----TEMP NAME----".$destinationProd."----DEST----".$prImage."---CTG IMAGE";
             // exit();
-            if(move_uploaded_file($prImageTmpName,$destinationProd)){
+            if (move_uploaded_file($prImageTmpName, $destinationProd)) {
                 $query = $pdo->prepare('insert into products(name,price,qty,proImage,category) values(:name,:price,:qty,:proImage,:category)');
-                $query->bindParam('name',$prName);
-                $query->bindParam('price',$prPrice);
-                $query->bindParam('qty',$prQty);
-                $query->bindParam('proImage',$randomImageNameProd);
-                $query->bindParam('category',$selectCtg);
+                $query->bindParam('name', $prName);
+                $query->bindParam('price', $prPrice);
+                $query->bindParam('qty', $prQty);
+                $query->bindParam('proImage', $randomImageNameProd);
+                $query->bindParam('category', $selectCtg);
                 $query->execute();
                 echo "after executing";
                 echo "<script>alert('Product added successfully')</script>";
-            }
-            else{
+            } else {
                 echo "<script>alert('Product not added')</script>";
             }
 
-        }
-        else{
+        } else {
             echo "<script>alert('Invalid extension')</script>";
         }
-    }
-    else{
+    } else {
         echo "<script>alert('file is too heavy')</script>";
     };
+}
+;
 
-};
+//update product
+if (isset($_POST['updateBtn'])) {
+    $updatedName = $_POST['updatedName'];
+    $updatedPrice = $_POST['updatedPrice'];
+    $updatedQty = $_POST['updatedQty'];
+    $updatedImage = $_FILES['updatedImage']['name'];
+    $updatedImageSize = $_FILES['updatedImage']['size'];
+    $updatedImageTmpName = $_FILES['updatedImage']['tmp_name'];
+    $updatedImageExt = pathinfo($updatedImage, PATHINFO_EXTENSION);
+    $updatedRandomImageName = generateRandomString(10) . "." . $updatedImageExt;
+    $updatedImageDestination = __DIR__ . "/img/" . $updatedRandomImageName;
+
+    if ($updatedImageSize <= 4800000) {
+        if ($updatedImageExt == 'jpeg' || $updatedImageExt == 'jpg' || $updatedImageExt == 'png' || $updatedImageExt == 'svg' || $updatedImageExt == 'webp') {
+            // echo $prImageTmpName."-----TEMP NAME----".$destinationProd."----DEST----".$prImage."---CTG IMAGE";
+            // exit();
+            if (move_uploaded_file($updatedImageTmpName, $updatedImageDestination)) {
+                $query = $pdo->prepare('insert into products(name,price,qty,proImage,category) values(:name,:price,:qty,:proImage,:category)');
+                $query->bindParam('name', $prName);
+                $query->bindParam('price', $prPrice);
+                $query->bindParam('qty', $prQty);
+                $query->bindParam('proImage', $randomImageNameProd);
+                $query->bindParam('category', $selectCtg);
+                $query->execute();
+                echo "after executing";
+                echo "<script>alert('Product added successfully')</script>";
+            } else {
+                echo "<script>alert('Product not added')</script>";
+            }
+
+        } else {
+            echo "<script>alert('Invalid extension')</script>";
+        }
+    } else {
+        echo "<script>alert('file is too heavy')</script>";
+    }
+    ;
+
+
+}
 
 //signin
 session_start();
-if(isset($_POST['loginBtn'])){
+if (isset($_POST['loginBtn'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $query = $pdo->prepare('select * from login where email = :email && password = :password');
-    $query->bindParam("email",$email);
-    $query->bindParam("password",$password);
+    $query->bindParam("email", $email);
+    $query->bindParam("password", $password);
     $query->execute();
     $row = $query->fetch(PDO::FETCH_ASSOC);
-    if($row){
+    if ($row) {
         $_SESSION['id'] = $row['userId'];
         header("location:index.php");
-    }
-    else{
+    } else {
         echo "<script>alert('user not found')</script>";
-    };
-};
+    }
+    ;
+}
+;
 // session_start();
 //signup
-if(isset($_POST['signUpBtn'])){
+if (isset($_POST['signUpBtn'])) {
     $getUserName = $_POST['getUserName'];
     $getEmail = $_POST['getEmail'];
     $getPass = $_POST['getPass'];
     $query = $pdo->prepare("insert into login(username,email,password) values(:username,:email,:password)");
-    $query->bindParam("username",$getUserName);
-    $query->bindParam("email",$getEmail);
-    $query->bindParam("password",$getPass);
+    $query->bindParam("username", $getUserName);
+    $query->bindParam("email", $getEmail);
+    $query->bindParam("password", $getPass);
     $query->execute();
     echo "<script>alert('Account has been created')</script>";
     header('location:index.php');
-}
-else{
+} else {
     // echo "<script>alert('This user already exists')</script>";
-};
+}
+;
 
 // if(isset($_SESSION['id'])){
 //     header("location:index.php");

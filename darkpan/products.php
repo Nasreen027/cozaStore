@@ -25,24 +25,28 @@ include('header.php');
                         $result = $query->fetchAll(PDO::FETCH_ASSOC);
                         foreach ($result as $data) {
                             ?>
-                        <tr>
-                            <td scope="row">
+                            <tr>
+                                <td scope="row">
                                     <?php echo $data['pId'] ?>
-                            </td>
-                            <td>
+                                </td>
+                                <td>
                                     <?php echo $data['name'] ?>
-                            </td>
-                            <td>
+                                </td>
+                                <td>
                                     <?php echo $data['price'] ?>
-                            </td>
-                            <td>
+                                </td>
+                                <td>
                                     <?php echo $data['qty'] ?>
-                            </td>
-                            <td><img style="height:80px;width:80px;object-fit:contain"
-                                    src='img/<?= $data['proImage'] ?>'></td>
-                                    <td>
+                                </td>
+                                <td><img style="height:80px;width:80px;object-fit:contain"
+                                        src='img/<?= $data['proImage'] ?>'>
+                                </td>
+                                <td>
                                     <?php echo $data['category'] ?>
-                            </td>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" type='submit' name='updateBtn'>Update</button>
+                                </td>
                             </tr>
 
                             <?php
@@ -54,46 +58,46 @@ include('header.php');
                     Product</button>
                 <div class="modal" id="myModal">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content bg-secondary p-4 p-sm-5 my-4 mx-3" style="min-height: 80vh;">
                             <form action="" method="post" enctype="multipart/form-data">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Add Product</h5>
+                                    <h3 class="modal-title">Add Product</h3>
                                     <button data-bs-dismiss='modal' type='button' class="btn-close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <input type="text" name='prName' class="form-control"
                                             placeholder='Enter product name here'>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <input type="text" name='prPrice' class="form-control"
                                             placeholder='Enter product price here'>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <input type="text" name='prQty' class="form-control"
                                             placeholder='Enter product quantity here'>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <input type="file" name='prImage' class="form-control">
                                     </div>
-                                    <div class="form-group">
-                                        <select name="selectCtg" id="">
+                                    <div class="form-group mb-3">
+                                        <select name="selectCtg" id="" class="form-control">
                                             <option value="">Choose category</option>
-                                           <?php
+                                            <?php
                                             $query = $pdo->query('select * from category');
                                             $result = $query->fetchAll(PDO::FETCH_ASSOC);
-                                            foreach($result as $data){
-                                           ?>
-                                            <option value="<?=$data['id']?>"><?php echo $data['ctgName'] ?></option>
-                                          <?php 
-                                        } 
-                                          ?>
-                                        
+                                            foreach ($result as $data) {
+                                                ?>
+                                                <option value="<?= $data['id'] ?>"><?php echo $data['ctgName'] ?></option>
+                                            <?php
+                                            }
+                                            ?>
+
                                         </select>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" name="addProdBtn">Add</button>
+                                    <button class="btn btn-sm btn-primary" type="submit" name="addProdBtn">Add</button>
                                 </div>
                             </form>
                         </div>
