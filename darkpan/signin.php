@@ -73,7 +73,7 @@ include("query.php");
                             <a href="">Forgot Password</a>
                         </div>
                         <button type="submit" name="loginBtn" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
-                        <p class="text-center mb-0">Don't have an Account? <a href="">Sign Up</a></p>
+                        <p class="text-center mb-0" name="signUpBtn">Don't have an Account? <a href="">Sign Up</a></p>
                     </div>
                 </div>
             </div>

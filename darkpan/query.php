@@ -1,6 +1,7 @@
 <?php
 include('connection.php');
 include_once("./includes/functions.php");
+session_start();
 
 //add category
 if (isset($_POST['addCtgBtn'])) {
@@ -85,6 +86,7 @@ if (isset($_POST['addProdBtn'])) {
 
 //update product
 if (isset($_POST['updateBtn'])) {
+    $updatedId = $_POST['updatedId'];
     $updatedName = $_POST['updatedName'];
     $updatedPrice = $_POST['updatedPrice'];
     $updatedQty = $_POST['updatedQty'];
@@ -101,15 +103,17 @@ if (isset($_POST['updateBtn'])) {
             // echo $prImageTmpName."-----TEMP NAME----".$destinationProd."----DEST----".$prImage."---CTG IMAGE";
             // exit();
             if (move_uploaded_file($updatedImageTmpName, $updatedImageDestination)) {
-                $query = $pdo->prepare('update products set name = :name, price = :price, qty = :qty, proImage = :image , category = :category');
+                $query = $pdo->prepare('update products set name = :name, price = :price, qty = :qty, proImage = :image , category = :category where pId = :id' );
+                $query->bindParam('id', $updatedId);  
                 $query->bindParam('name', $updatedName);
                 $query->bindParam('price', $updatedPrice);
                 $query->bindParam('qty', $updatedQty);
                 $query->bindParam('proImage', $updatedRandomImageName);
                 $query->bindParam('category',$updatedCtg);
                 $query->execute();
-                echo "after executing";
-                echo "<script>alert('Product updated successfully')</script>";
+                // echo "after executing";
+                // echo "<script>alert('Product updated successfully')</script>";
+                header("location:products.php");
             } else {
                 echo "<script>alert('Product not updated')</script>";
             }
@@ -126,7 +130,6 @@ if (isset($_POST['updateBtn'])) {
 }
 
 //signin
-session_start();
 if (isset($_POST['loginBtn'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];

@@ -2,7 +2,7 @@
 include('query.php');
 // session_start();
 if(!isset($_SESSION['id'])){
-    header('location:sigin.php');
+    header('location:signin.php');
 };
 ?>
 <!DOCTYPE html>
