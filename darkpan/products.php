@@ -46,7 +46,7 @@ include('header.php');
                                 </td>
                                 <td>
                                     <button class="btn btn-sm btn-primary" type='submit' data-bs-toggle="modal"
-                                        data-bs-target="#myModal2<?php echo $data['pId'] ?>"><a href="#myModal2?id=<?php echo $data['pId'] ?>">Update</a></button>
+                                        data-bs-target="#myModal2<?php echo $data['pId'] ?>"><a class="text-white" href="#myModal2?id=<?php echo $data['pId'] ?>">Update</a></button>
                                 </td>
                                 <!-- update product modal start -->
                 <div class="modal" id="myModal2<?php echo $data['pId'] ?>">
@@ -55,9 +55,13 @@ include('header.php');
                             <form method="post" enctype="multipart/form-data">
                                 <div class="modal-header">
                                     <h3 class="modal-title">Update Product</h3>
-                                    <button data-bs-dismiss='modal2' type='button' class="btn-close"></button>
+                                    <button data-bs-dismiss='modal' type='button' class="btn-close"></button>
                                 </div>
                                 <div class="modal-body">
+                                <div class="form-group mb-3" style="display:none">
+                                        <input value="<?php echo $data['pId'] ?>" type="text" name='updatedId' class="form-control"
+                                            placeholder='Enter product name here'>
+                                    </div>
                                     <div class="form-group mb-3">
                                         <input value="<?php echo $data['name'] ?>" type="text" name='updatedName' class="form-control"
                                             placeholder='Enter product name here'>
@@ -91,9 +95,9 @@ include('header.php');
                                         </select>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
+                                
                                     <button class="btn btn-sm btn-primary" type="submit" name="updateBtn">Done</button>
-                                </div>
+                                
                             </form>
                         </div>
                     </div>
