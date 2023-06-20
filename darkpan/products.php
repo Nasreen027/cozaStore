@@ -45,7 +45,8 @@ include('header.php');
                                     <?php echo $data['category'] ?>
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary" type='submit' name='updateBtn'>Update</button>
+                                    <button class="btn btn-sm btn-primary" type='submit' data-bs-toggle="modal2"
+                                        data-bs-target="#myModal<?php echo $data['pId'] ?>">Update</button>
                                 </td>
                             </tr>
 
@@ -54,9 +55,60 @@ include('header.php');
                         ?>
                     </tbody>
                 </table>
+                <!-- update product modal start -->
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content bg-secondary p-4 p-sm-5 my-4 mx-3" style="min-height: 80vh;">
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Update Product</h3>
+                                    <button data-bs-dismiss='modal2' type='button' class="btn-close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group mb-3">
+                                        <input value="<?php echo $data['name'] ?>" type="text" name='updatedName' class="form-control"
+                                            placeholder='Enter product name here'>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <input value="<?php echo $data['name'] ?>" type="text" name='updatedPrice' class="form-control"
+                                            placeholder='Enter product price here'>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <input value="<?php echo $data['name'] ?>" type="text" name='updatedQty' class="form-control"
+                                            placeholder='Enter product quantity here'>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <input value="<?php echo $data['name'] ?>" type="file" name='updatedImage' class="form-control">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <select name="updatedCtg" id="" class="form-control">
+                                            <option value="">Choose category</option>
+                                            <?php
+                                            $query = $pdo->query('select * from category');
+                                            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+                                            foreach ($result as $data) {
+                                                ?>
+                                                <option value="<?= $data['id'] ?>"><?php echo $data['ctgName'] ?><?php echo $data['name'] ?></option>
+                                                <?php
+                                            }
+                                            ?>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-sm btn-primary" type="submit" name="updateBtn">Done</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- update product modal end -->
                 <button class="btn btn-sm btn-primary" data-bs-toggle='modal' data-bs-target='#myModal'>Add
                     Product</button>
-                <div class="modal" id="myModal">
+
+                <!-- add product modal start -->
+                <div class="modal" id="myModal<?php echo $data['pId'] ?>">
                     <div class="modal-dialog">
                         <div class="modal-content bg-secondary p-4 p-sm-5 my-4 mx-3" style="min-height: 80vh;">
                             <form action="" method="post" enctype="multipart/form-data">
@@ -89,7 +141,7 @@ include('header.php');
                                             foreach ($result as $data) {
                                                 ?>
                                                 <option value="<?= $data['id'] ?>"><?php echo $data['ctgName'] ?></option>
-                                            <?php
+                                                <?php
                                             }
                                             ?>
 
@@ -103,6 +155,7 @@ include('header.php');
                         </div>
                     </div>
                 </div>
+                <!-- add product modal end -->
             </div>
         </div>
         <!-- Table End -->

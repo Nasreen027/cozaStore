@@ -88,6 +88,7 @@ if (isset($_POST['updateBtn'])) {
     $updatedName = $_POST['updatedName'];
     $updatedPrice = $_POST['updatedPrice'];
     $updatedQty = $_POST['updatedQty'];
+    $updatedCtg = $_POST['updatedCtg'];
     $updatedImage = $_FILES['updatedImage']['name'];
     $updatedImageSize = $_FILES['updatedImage']['size'];
     $updatedImageTmpName = $_FILES['updatedImage']['tmp_name'];
@@ -100,17 +101,17 @@ if (isset($_POST['updateBtn'])) {
             // echo $prImageTmpName."-----TEMP NAME----".$destinationProd."----DEST----".$prImage."---CTG IMAGE";
             // exit();
             if (move_uploaded_file($updatedImageTmpName, $updatedImageDestination)) {
-                $query = $pdo->prepare('insert into products(name,price,qty,proImage,category) values(:name,:price,:qty,:proImage,:category)');
-                $query->bindParam('name', $prName);
-                $query->bindParam('price', $prPrice);
-                $query->bindParam('qty', $prQty);
-                $query->bindParam('proImage', $randomImageNameProd);
-                $query->bindParam('category', $selectCtg);
+                $query = $pdo->prepare('update products set name = :name, price = :price, qty = :qty, proImage = :image , category = :category');
+                $query->bindParam('name', $updatedName);
+                $query->bindParam('price', $updatedPrice);
+                $query->bindParam('qty', $updatedQty);
+                $query->bindParam('proImage', $updatedRandomImageName);
+                $query->bindParam('category',$updatedCtg);
                 $query->execute();
                 echo "after executing";
-                echo "<script>alert('Product added successfully')</script>";
+                echo "<script>alert('Product updated successfully')</script>";
             } else {
-                echo "<script>alert('Product not added')</script>";
+                echo "<script>alert('Product not updated')</script>";
             }
 
         } else {

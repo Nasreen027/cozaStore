@@ -1,9 +1,5 @@
 <?php
 include('header.php');
-session_start();
-if(!isset($_SESSION['id'])){
-    header('location:sigin.php');
-};
 ?>
             <!-- Sale & Revenue Start -->
             <div class="container-fluid pt-4 px-4">

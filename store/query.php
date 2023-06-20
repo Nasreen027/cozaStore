@@ -1,3 +1,3 @@
 <?php
-include("../connection.php");
+include("../darkpan/connection.php");
 ?>
