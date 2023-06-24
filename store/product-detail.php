@@ -472,7 +472,14 @@ include("header.php");
 									</div>
 								</div>
 
+								
+								
 								<div class="flex-w flex-r-m p-b-10">
+								<form action="shoping-cart.php" method="post">
+									<input type="hidden" name="pId" id="" value='<?php echo $item['pId'] ?>'>
+									<input type="hidden" name="name" id="" value='<?php echo $item['name'] ?>'>
+									<input type="hidden" name="price" id="" value='<?php echo $item['price'] ?>'>
+									<input type="hidden" name="proImage" id="" value='<?php echo $item['proImage'] ?>'>
 									<div class="size-204 flex-w flex-m respon6-next">
 										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
 											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
@@ -487,11 +494,12 @@ include("header.php");
 											</div>
 										</div>
 
-										<button
+										<button name="addToCartBtn"
 											class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
 											Add to cart
 										</button>
 									</div>
+								</form>
 								</div>
 							</div>
 
