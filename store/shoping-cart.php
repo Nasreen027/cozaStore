@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("header.php");
+include("header.php")
 ?>
 
 
@@ -21,25 +21,38 @@ include("header.php");
 <?php
 //shoping cart
 if(isset($_POST['addToCartBtn'])){
-	$productId = array_column($_SESSION['cart'],'getId');
-	if(in_array($_POST['pId'],$productId)){
-		echo "<script>alert('product already exists in the cart')</script>";
-	}
-	else{
-    if(isset($_SESSION['cart'])){
-        $count = count($_SESSION['cart']);
-        $_SESSION['cart'][$count] = array('getId'=>$_POST['pId'],'getName'=>$_POST['name'],'getPrice'=>$_POST['price'],'getImage'=>$_POST['proImage'],'qty'=>$_POST['num-product']);
+	
+	// $productId = array_column($_SESSION['cart'],'getId');
+	// if(in_array($_POST['pId'],$productId)){
+	// 	echo "<script>alert('product already exists in the cart')</script>";
+	//
+	// else{
+    if(isset($_SESSION['cartTwo'])){
+        $count = count($_SESSION['cartTwo']);
+        $_SESSION['cartTwo'][$count] = array('getId'=>$_POST['pId'],'getName'=>$_POST['name'],'getPrice'=>$_POST['price'],'getImage'=>$_POST['proImage'],'qty'=>$_POST['num-product']);
         echo `<script>alert('product added into cart');
         location.assign(index.php);
         </script>`;
     }
     else{
-        $_SESSION['cart'][0]= array('getId'=>$_POST['pId'],'getName'=>$_POST['name'],'getPrice'=>$_POST['price'],'getImage'=>$_POST['proImage'],'qty'=>$_POST['num-product']);
+        $_SESSION['cartTwo'][0]= array('getId'=>$_POST['pId'],'getName'=>$_POST['name'],'getPrice'=>$_POST['price'],'getImage'=>$_POST['proImage'],'qty'=>$_POST['num-product']);
         echo `<script>alert('product added into cart');
         location.assign(index.php);
         </script>`;
     };
+// }
 }
+if(isset($_GET['remove'])){
+	foreach($_SESSION['cartTwo'] as $key => $value){
+		if($_GET['remove'] == $value['getId']){
+			unset($_SESSION['cartTwo'][$key]);
+			//reset array
+			$_SESSION['cartTwo'] = array_values($_SESSION['cartTwo']);
+			echo "<script>alert('product removed from cart')
+			location.assign('shoping-cart.php');
+			</script>";
+		}
+	}
 }
 ?>
 	<!-- Shoping Cart -->
@@ -59,7 +72,7 @@ if(isset($_POST['addToCartBtn'])){
 								</tr>
 
 								<?php
-								foreach ($_SESSION['cart'] as $row) {
+								foreach ($_SESSION['cartTwo'] as $row) {
 									?>
 									<tr class="table_row">
 										<td class="column-1">
@@ -84,6 +97,7 @@ if(isset($_POST['addToCartBtn'])){
 											</div>
 										</td>
 										<td class="column-5"><?php echo $row['getPrice'] *  $row['qty'] ?></td>
+										<td class="column-5"><a href="?remove=<?php echo $row['getId'] ?>">Delete</a></td>
 									</tr>
 									<?php
 								}

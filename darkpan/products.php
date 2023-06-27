@@ -4,7 +4,6 @@ include('header.php');
 <!-- Table Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
-        <div class="col-sm-12 col-xl-12">
             <div class="bg-secondary rounded h-100 p-4">
                 <h6 class="mb-4">Products Table</h6>
 
@@ -45,11 +44,11 @@ include('header.php');
                                     <?php echo $data['category'] ?>
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary" type='submit' data-bs-toggle="modal"
-                                        data-bs-target="#myModal2<?php echo $data['pId'] ?>"><a class="text-white" href="#myModal2?id=<?php echo $data['pId'] ?>">Update</a></button>
+                                    <button  class="btn btn-sm btn-primary"  data-bs-toggle="modal"
+                                        data-bs-target="#abc<?php echo $data['pId'] ?>"><a class="text-white" href="#abc?id=<?php echo $data['pId'] ?>">Update</a></button>
                                 </td>
                                 <!-- update product modal start -->
-                <div class="modal" id="myModal2<?php echo $data['pId'] ?>">
+                <div class="modal" id="abc<?php echo $data['pId'] ?>">
                     <div class="modal-dialog">
                         <div class="modal-content bg-secondary p-4 p-sm-5 my-4 mx-3" style="min-height: 80vh;">
                             <form method="post" enctype="multipart/form-data">
@@ -58,8 +57,8 @@ include('header.php');
                                     <button data-bs-dismiss='modal' type='button' class="btn-close"></button>
                                 </div>
                                 <div class="modal-body">
-                                <div class="form-group mb-3" style="display:none">
-                                        <input value="<?php echo $data['pId'] ?>" type="text" name='updatedId' class="form-control"
+                                <div class="form-group mb-3" >
+                                        <input value="<?php echo $data['pId'] ?>" type="hidden" name='updatedId' class="form-control"
                                             placeholder='Enter product name here'>
                                     </div>
                                     <div class="form-group mb-3">
@@ -96,18 +95,19 @@ include('header.php');
                                     </div>
                                 </div>
                                 
-                                    <button class="btn btn-sm btn-primary" type="submit" name="updateBtn">Done</button>
+                                    <button class="btn btn-sm btn-primary" name="updateBtn">Done</button>
                                 
                             </form>
+                            <?php
+                        }
+                        ?>
                         </div>
                     </div>
                 </div>
                 <!-- update product modal end -->
                             </tr>
 
-                            <?php
-                        }
-                        ?>
+                          
                     </tbody>
                 </table>
                 
@@ -164,7 +164,6 @@ include('header.php');
                 </div>
                 <!-- add product modal end -->
             </div>
-        </div>
         <!-- Table End -->
         <?php
         include('footer.php');

@@ -1,7 +1,7 @@
 <?php
+session_start();
 include('connection.php');
 include_once("./includes/functions.php");
-session_start();
 
 //add category
 if (isset($_POST['addCtgBtn'])) {
@@ -110,10 +110,11 @@ if (isset($_POST['updateBtn'])) {
                 $query->bindParam('qty', $updatedQty);
                 $query->bindParam('proImage', $updatedRandomImageName);
                 $query->bindParam('category',$updatedCtg);
+                // echo "before executing";
                 $query->execute();
-                // echo "after executing";
-                // echo "<script>alert('Product updated successfully')</script>";
-                header("location:products.php");
+                echo "after executing";
+                echo "<script>alert('Product updated successfully')</script>";
+                echo "<script>location.assign('products.php')</script>";
             } else {
                 echo "<script>alert('Product not updated')</script>";
             }
