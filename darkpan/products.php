@@ -84,7 +84,7 @@ include('header.php');
                                             $result = $query->fetchAll(PDO::FETCH_ASSOC);
                                             foreach ($result as $data) {
                                                 ?>
-                                                <option value="<?php $data['id'] ?>">
+                                                <option value="<?php echo $data['id'] ?>">
                                                 <?php echo $data['ctgName'] ?>
                                             </option>
                                                 <?php

@@ -99,36 +99,29 @@ if (isset($_POST['updateBtn'])) {
     $updatedImageDestination = __DIR__ . "/img/" . $updatedRandomImageName;
 
     if ($updatedImageSize <= 4800000) {
-        if ($updatedImageExt == 'jpeg' || $updatedImageExt == 'jpg' || $updatedImageExt == 'png' || $updatedImageExt == 'svg' || $updatedImageExt == 'webp') {
-            // echo $prImageTmpName."-----TEMP NAME----".$destinationProd."----DEST----".$prImage."---CTG IMAGE";
-            // exit();
+        if (in_array($updatedImageExt, ['jpeg', 'jpg', 'png', 'svg', 'webp'])) {
             if (move_uploaded_file($updatedImageTmpName, $updatedImageDestination)) {
-                $query = $pdo->prepare('update products set name = :name, price = :price, qty = :qty, proImage = :image , category = :category where pId = :id' );
-                $query->bindParam('id', $updatedId);  
-                $query->bindParam('name', $updatedName);
-                $query->bindParam('price', $updatedPrice);
-                $query->bindParam('qty', $updatedQty);
-                $query->bindParam('proImage', $updatedRandomImageName);
-                $query->bindParam('category',$updatedCtg);
-                // echo "before executing";
+                $query = $pdo->prepare('UPDATE products SET name = :name, price = :price, qty = :qty, proImage = :image, category = :category WHERE pId = :id');
+                $query->bindParam(':id', $updatedId);  
+                $query->bindParam(':name', $updatedName);
+                $query->bindParam(':price', $updatedPrice);
+                $query->bindParam(':qty', $updatedQty);
+                $query->bindParam(':image', $updatedRandomImageName);
+                $query->bindParam(':category', $updatedCtg);
                 $query->execute();
-                echo "after executing";
                 echo "<script>alert('Product updated successfully')</script>";
                 echo "<script>location.assign('products.php')</script>";
             } else {
                 echo "<script>alert('Product not updated')</script>";
             }
-
         } else {
             echo "<script>alert('Invalid extension')</script>";
         }
     } else {
-        echo "<script>alert('file is too heavy')</script>";
+        echo "<script>alert('File is too large')</script>";
     }
-    ;
-
-
 }
+
 
 //signin
 if (isset($_POST['loginBtn'])) {
