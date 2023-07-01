@@ -83,6 +83,7 @@ if (isset($_POST['addProdBtn'])) {
     };
 }
 ;
+//////
 
 //update product
 if (isset($_POST['updateBtn'])) {
