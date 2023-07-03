@@ -47,6 +47,9 @@ include('header.php');
                                     <button  class="btn btn-sm btn-primary"  data-bs-toggle="modal"
                                         data-bs-target="#abc<?php echo $data['pId'] ?>"><a class="text-white" href="#abc?id=<?php echo $data['pId'] ?>">Update</a></button>
                                 </td>
+                                <td>
+                                    <button  class="btn btn-sm btn-primary"><a class="text-white" href="">Delete</a></button>
+                                </td>
                                 <!-- update product modal start -->
                 <div class="modal" id="abc<?php echo $data['pId'] ?>">
                     <div class="modal-dialog">
@@ -96,6 +99,7 @@ include('header.php');
                                 </div>
                                 
                                     <button class="btn btn-sm btn-primary" name="updateBtn">Done</button>
+                                    
                                 
                             </form>
                             <?php
