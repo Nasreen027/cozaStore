@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("header.php")
+include("header.php");
 ?>
 
 
@@ -22,11 +22,11 @@ include("header.php")
 //shoping cart
 if(isset($_POST['addToCartBtn'])){
 	
-	// $productId = array_column($_SESSION['cart'],'getId');
-	// if(in_array($_POST['pId'],$productId)){
-	// 	echo "<script>alert('product already exists in the cart')</script>";
-	//
-	// else{
+	$productId = array_column($_SESSION['cart'],'getId');
+	if(in_array($_POST['pId'],$productId)){
+		echo "<script>alert('product already exists in the cart')</script>";
+	}
+	else{
     if(isset($_SESSION['cartTwo'])){
         $count = count($_SESSION['cartTwo']);
         $_SESSION['cartTwo'][$count] = array('getId'=>$_POST['pId'],'getName'=>$_POST['name'],'getPrice'=>$_POST['price'],'getImage'=>$_POST['proImage'],'qty'=>$_POST['num-product']);
@@ -40,8 +40,9 @@ if(isset($_POST['addToCartBtn'])){
         location.assign(index.php);
         </script>`;
     };
-// }
 }
+}
+
 if(isset($_GET['remove'])){
 	foreach($_SESSION['cartTwo'] as $key => $value){
 		if($_GET['remove'] == $value['getId']){
@@ -206,9 +207,22 @@ if(isset($_GET['remove'])){
 							</div>
 						</div>
 
-						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+					  <?php
+					 if(isset($_SESSION['name'])){
+						?>
+						<a href="?checkout" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
 							Proceed to Checkout
-						</button>
+							</a>
+						<?php
+					 } 
+					 else{
+						?>
+						<a href="login.php" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+							Proceed to Checkout
+							</a>
+						<?php
+					 }
+					  ?>
 					</div>
 				</div>
 			</div>
