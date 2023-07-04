@@ -1,4 +1,5 @@
 <?php
+// include("header.php");
 session_start();
 include("../darkpan/connection.php");
 
@@ -23,8 +24,6 @@ if (isset($_POST['loginBtnStore'])) {
     ;
 }
 ;
-if(isset($_GET['checkout'])){
-    userId =  $_SESSION['id']; 
-}
+
 
 ?>

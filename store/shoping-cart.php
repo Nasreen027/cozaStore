@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("header.php");
+// include("query.php");
 ?>
 
 
@@ -54,7 +55,36 @@ if(isset($_GET['remove'])){
 			</script>";
 		}
 	}
-}
+};
+
+if(isset($_GET['checkout'])){
+    $userId =  $_SESSION['id'];
+    $userName = $_SESSION['name'];
+    // $userEmail = $_SESSION['email'];
+
+    foreach($_SESSION['cartTwo'] as $key => $value){
+        $id = $value['getId'];
+        $name = $value['getName'];
+        $price = $value['getPrice'];
+        $qty = $value['qty'];
+        $query = $pdo->prepare('insert into orders(pId,pName,pPrice,pQty,userId,uName) values(:pId,:pName,:pPrice,:pQty,:userId, :uName)');
+        $query->bindParam("pId",$id);
+        $query->bindParam("pName",$name);
+        $query->bindParam("pPrice",$price);
+        $query->bindParam("pQty",$qty);
+        $query->bindParam("userId",$userId);
+        $query->bindParam("uName",$userName);
+
+        $query->execute();
+
+        echo "<script>alert('order added successfully');
+        location.assign('index.php');
+        </script>";
+        unset($_SESSION['cartTwo']);
+
+    }
+};
+
 ?>
 	<!-- Shoping Cart -->
 	<form class="bg0 p-t-75 p-b-85">
