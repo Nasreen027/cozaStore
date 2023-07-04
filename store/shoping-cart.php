@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("header.php");
+// echo "<script>alert('reached at shoping page')</script>";
 // include("query.php");
 ?>
 
@@ -22,8 +23,9 @@ include("header.php");
 <?php
 //shoping cart
 if(isset($_POST['addToCartBtn'])){
+// echo "<script>alert('reached at shoping page')</script>";
 	
-	$productId = array_column($_SESSION['cart'],'getId');
+	$productId = array_column($_SESSION['cartTwo'],'getId');
 	if(in_array($_POST['pId'],$productId)){
 		echo "<script>alert('product already exists in the cart')</script>";
 	}
@@ -42,7 +44,7 @@ if(isset($_POST['addToCartBtn'])){
         </script>`;
     };
 }
-}
+};
 
 if(isset($_GET['remove'])){
 	foreach($_SESSION['cartTwo'] as $key => $value){
@@ -58,32 +60,33 @@ if(isset($_GET['remove'])){
 };
 
 if(isset($_GET['checkout'])){
-    $userId =  $_SESSION['id'];
-    $userName = $_SESSION['name'];
-    // $userEmail = $_SESSION['email'];
+	$userId =  $_SESSION['id'];
+	$userName = $_SESSION['name'];
+	// $userEmail = $_SESSION['email'];
 
-    foreach($_SESSION['cartTwo'] as $key => $value){
-        $id = $value['getId'];
-        $name = $value['getName'];
-        $price = $value['getPrice'];
-        $qty = $value['qty'];
-        $query = $pdo->prepare('insert into orders(pId,pName,pPrice,pQty,userId,uName) values(:pId,:pName,:pPrice,:pQty,:userId, :uName)');
-        $query->bindParam("pId",$id);
-        $query->bindParam("pName",$name);
-        $query->bindParam("pPrice",$price);
-        $query->bindParam("pQty",$qty);
-        $query->bindParam("userId",$userId);
-        $query->bindParam("uName",$userName);
+	foreach($_SESSION['cartTwo'] as $key => $value){
+		$id = $value['getId'];
+		$name = $value['getName'];
+		$price = $value['getPrice'];
+		$qty = $value['qty'];
+		$query = $pdo->prepare('insert into orders(pId,pName,pPrice,pQty,userId,uName) values(:pId, :pName, :pPrice, :pQty, :userId, :uName)');
+		$query->bindParam("pId",$id);
+		$query->bindParam("pName",$name);
+		$query->bindParam("pPrice",$price);
+		$query->bindParam("pQty",$qty);
+		$query->bindParam("userId",$userId);
+		$query->bindParam("uName",$userName);
 
-        $query->execute();
+		$query->execute();
 
-        echo "<script>alert('order added successfully');
-        location.assign('index.php');
-        </script>";
-        unset($_SESSION['cartTwo']);
+		echo "<script>alert('order added successfully');
+		location.assign('index.php');
+		</script>";
+		unset($_SESSION['cartTwo']);
 
-    }
+	}
 };
+
 
 ?>
 	<!-- Shoping Cart -->
