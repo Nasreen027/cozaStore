@@ -48,7 +48,7 @@ include('header.php');
                                         data-bs-target="#abc<?php echo $data['pId'] ?>"><a class="text-white" href="#abc?id=<?php echo $data['pId'] ?>">Update</a></button>
                                 </td>
                                 <td>
-                                    <button  class="btn btn-sm btn-primary"><a class="text-white" href="">Delete</a></button>
+                                    <button  class="btn btn-sm btn-primary"><a class="text-white" href=""></a></button>
                                 </td>
                                 <!-- update product modal start -->
                 <div class="modal" id="abc<?php echo $data['pId'] ?>">
